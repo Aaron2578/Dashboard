@@ -182,28 +182,35 @@ function fetchNews() {
         return;
     }
 
-    // Clear previous news items before adding new ones
+    // Show loading state
     newsList.innerHTML = "<li class='list-group-item text-center'>Loading news...</li>";
 
-    fetch("https://newsapi.org/v2/top-headlines?country=us&apiKey=8e4740598a6043c0a7b3ba89be05801d")
-        .then(res => {
-            if (!res.ok) {
-                throw new Error(`HTTP error! Status: ${res.status}`);
+    // API URL
+    const API_URL = "https://newsdata.io/api/1/latest?apikey=pub_768122ddcce35e9a351f9ab19b5b3db43ffa2";
+
+    fetch(API_URL)
+        .then(response => {
+            if (!response.ok) {
+                throw new Error(`HTTP error! Status: ${response.status}`);
             }
-            return res.json();
+            return response.json();
         })
         .then(data => {
-            newsList.innerHTML = ""; // Clear loading text
+            newsList.innerHTML = ""; // Clear previous content
 
-            if (!data.articles || data.articles.length === 0) {
+            if (!data.results || data.results.length === 0) {
                 newsList.innerHTML = "<li class='list-group-item text-center'>No news available.</li>";
                 return;
             }
 
-            data.articles.slice(0, 5).forEach(article => { // Limits to 5 articles
+            // Loop through articles (limit to 5)
+            data.results.slice(0, 5).forEach(article => {
                 const li = document.createElement("li");
                 li.className = "list-group-item";
-                li.innerHTML = `<strong>${article.title}</strong> <br> <a href="${article.url}" target="_blank">Read more</a>`;
+                li.innerHTML = `
+                    <strong>${article.title}</strong> <br>
+                    <a href="${article.link}" target="_blank">Read more</a>
+                `;
                 newsList.appendChild(li);
             });
         })
