@@ -1,0 +1,48 @@
+body {
+    background: var(--bg-color);
+    color: var(--text-color);
+    transition: background 0.3s ease, color 0.3s ease;
+}
+
+:root {
+    --bg-color: #f8f9fa;
+    --text-color: #212529;
+}
+
+.card {
+    transition: transform 0.3s ease-in-out;
+}
+.card:hover {
+    transform: scale(1.05);
+}
+/* Smooth transition for theme change */
+
+
+/* Dark mode styles */
+.dark-mode {
+    background-color: #121212;
+    color: white;
+}
+
+.dark-mode .navbar {
+    background-color: #1f1f1f !important;
+}
+
+.dark-mode .navbar a {
+    color: white !important;
+}
+
+.dark-mode .card {
+    background-color: #1e1e1e;
+    color: white;
+}
+
+.dark-mode .btn-outline-dark {
+    border-color: white;
+    color: white;
+}
+
+.dark-mode .btn-outline-dark:hover {
+    background-color: white;
+    color: black;
+}
